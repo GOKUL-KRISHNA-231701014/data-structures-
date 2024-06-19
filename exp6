@@ -1,0 +1,88 @@
+Evaluation of postfix
+
+
+
+
+#include <stdio.h>
+#include<string.h>
+#define MAX 30
+char expr[MAX];
+int stack[MAX];//int data type as we gonna push only integers into the stack //
+int top=-1;
+void push(int var);
+int  pop();
+int main(){
+    int a,b;
+    printf("enter the expression:");
+    scanf("%s",expr);
+    for (int i=0;i<strlen(expr);i++)
+    {
+     if (expr[i]=='*'||expr[i]=='%'||expr[i]=='+'||expr[i]=='-'||expr[i]=='/')
+        {
+            int  c;
+            a=pop();
+            b=pop();
+            switch(expr[i])
+            {
+                case  '*':
+                c=a*b;
+                push(c);
+                break;
+                case  '-':
+                if(a>b){
+                    c=a-b;
+                    push(c); 
+                    break;
+                }else{
+                    c=b-a;
+                    push(c);
+                    break;
+                }
+                case '+':
+                c=a+b;
+                push(c);
+                break;
+                case '/':
+                if(a>b){
+                    c=a/b;
+                    push(c); 
+                    break;
+                }else{
+                    c=b/a;
+                    push(c);
+                    break;
+                }
+                case '%':
+                if(a>b){
+                    c=a%b;
+                    push(c); 
+                    break;
+                }else{
+                    c=b%a;
+                    push(c);
+                    break;
+                }
+                
+            }
+        }
+         else  {int e;
+           printf("Enter the value of %c : ", expr[i]);
+           scanf("%d", &e);
+           push(e);
+}
+    }
+    printf("%d",pop());
+}
+
+
+
+
+void push (int var){
+    top+=1;
+    stack[top]=var;
+}
+int pop(){
+    int k;
+    k=stack[top];
+    return k;
+}
